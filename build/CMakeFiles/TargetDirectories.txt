@@ -1,0 +1,7 @@
+/home/fadey/Documents/Pwner/build/CMakeFiles/Pwner.dir
+/home/fadey/Documents/Pwner/build/CMakeFiles/edit_cache.dir
+/home/fadey/Documents/Pwner/build/CMakeFiles/rebuild_cache.dir
+/home/fadey/Documents/Pwner/build/CMakeFiles/list_install_components.dir
+/home/fadey/Documents/Pwner/build/CMakeFiles/install.dir
+/home/fadey/Documents/Pwner/build/CMakeFiles/install/local.dir
+/home/fadey/Documents/Pwner/build/CMakeFiles/install/strip.dir

@@ -1,0 +1,44 @@
+[
+{
+  "directory": "/home/fadey/Documents/Pwner/build",
+  "command": "/usr/bin/g++ -I/home/fadey/Documents/Pwner/src -O2 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/Pwner.dir/src/main.cpp.o -c /home/fadey/Documents/Pwner/src/main.cpp",
+  "file": "/home/fadey/Documents/Pwner/src/main.cpp",
+  "output": "CMakeFiles/Pwner.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/fadey/Documents/Pwner/build",
+  "command": "/usr/bin/g++ -I/home/fadey/Documents/Pwner/src -O2 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/Pwner.dir/src/utils.cpp.o -c /home/fadey/Documents/Pwner/src/utils.cpp",
+  "file": "/home/fadey/Documents/Pwner/src/utils.cpp",
+  "output": "CMakeFiles/Pwner.dir/src/utils.cpp.o"
+},
+{
+  "directory": "/home/fadey/Documents/Pwner/build",
+  "command": "/usr/bin/g++ -I/home/fadey/Documents/Pwner/src -O2 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/Pwner.dir/src/config.cpp.o -c /home/fadey/Documents/Pwner/src/config.cpp",
+  "file": "/home/fadey/Documents/Pwner/src/config.cpp",
+  "output": "CMakeFiles/Pwner.dir/src/config.cpp.o"
+},
+{
+  "directory": "/home/fadey/Documents/Pwner/build",
+  "command": "/usr/bin/g++ -I/home/fadey/Documents/Pwner/src -O2 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/Pwner.dir/src/elf_parser.cpp.o -c /home/fadey/Documents/Pwner/src/elf_parser.cpp",
+  "file": "/home/fadey/Documents/Pwner/src/elf_parser.cpp",
+  "output": "CMakeFiles/Pwner.dir/src/elf_parser.cpp.o"
+},
+{
+  "directory": "/home/fadey/Documents/Pwner/build",
+  "command": "/usr/bin/g++ -I/home/fadey/Documents/Pwner/src -O2 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/Pwner.dir/src/scripts.cpp.o -c /home/fadey/Documents/Pwner/src/scripts.cpp",
+  "file": "/home/fadey/Documents/Pwner/src/scripts.cpp",
+  "output": "CMakeFiles/Pwner.dir/src/scripts.cpp.o"
+},
+{
+  "directory": "/home/fadey/Documents/Pwner/build",
+  "command": "/usr/bin/g++ -I/home/fadey/Documents/Pwner/src -O2 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/Pwner.dir/src/patcher.cpp.o -c /home/fadey/Documents/Pwner/src/patcher.cpp",
+  "file": "/home/fadey/Documents/Pwner/src/patcher.cpp",
+  "output": "CMakeFiles/Pwner.dir/src/patcher.cpp.o"
+},
+{
+  "directory": "/home/fadey/Documents/Pwner/build",
+  "command": "/usr/bin/g++ -I/home/fadey/Documents/Pwner/src -O2 -DNDEBUG -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles/Pwner.dir/src/decomp.cpp.o -c /home/fadey/Documents/Pwner/src/decomp.cpp",
+  "file": "/home/fadey/Documents/Pwner/src/decomp.cpp",
+  "output": "CMakeFiles/Pwner.dir/src/decomp.cpp.o"
+}
+]
