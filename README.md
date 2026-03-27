@@ -1,6 +1,5 @@
 # Pwner
-
-A blazing-fast C++ CTF pwn challenge automation tool. Sets up your entire exploit workspace in seconds — checksec, pwntools script, libc patching, and decompiler launch in one command.
+C++ CTF pwn challenge automation tool. Sets up your entire exploit workspace in seconds — checksec, pwntools script, libc patching, and decompiler launch in one command.
 
 ```
     ____
@@ -320,7 +319,3 @@ sudo cmake --install .
 ```
 
 Requirements: CMake 3.14+, C++17 compiler (GCC 8+ or Clang 7+).
-
-## License
-
-MIT
