@@ -66,6 +66,26 @@ static std::string json_extract(const std::string& json, const std::string& key)
     return trim(json.substr(pos, end - pos));
 }
 
+// ─── Validate URL is safe for curl (HTTPS only) ─────────────
+static bool is_safe_url(const std::string& url) {
+    return url.size() > 8 &&
+           (url.substr(0, 8) == "https://" || url.substr(0, 7) == "http://") &&
+           url.find("..") == std::string::npos &&
+           url.find('\n') == std::string::npos &&
+           url.find('\r') == std::string::npos;
+}
+
+// ─── Sanitize string for safe JSON embedding (hex chars only for build-id) ─
+static std::string sanitize_hex(const std::string& s) {
+    std::string out;
+    out.reserve(s.size());
+    for (char c : s) {
+        if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'))
+            out += c;
+    }
+    return out;
+}
+
 // ─── Extract all download URLs from libc.rip JSON array ─────
 static std::string extract_download_url(const std::string& json) {
     // The response is a JSON array; find the first download_url
@@ -103,9 +123,12 @@ static bool download_from_libc_rip(const std::string& build_id,
                                     const ElfInfo& elf) {
     if (build_id.empty()) return false;
 
-    info("Querying libc.rip with build-id: " + build_id.substr(0, 16) + "...");
+    std::string safe_id = sanitize_hex(build_id);
+    if (safe_id.empty()) return false;
 
-    std::string payload = "{\"buildid\":\"" + build_id + "\"}";
+    info("Querying libc.rip with build-id: " + safe_id.substr(0, 16) + "...");
+
+    std::string payload = "{\"buildid\":\"" + safe_id + "\"}";
     auto r = exec("curl -sf -m 15 -X POST 'https://libc.rip/api/find' "
                    "-H 'Content-Type: application/json' "
                    "-d " + shell_quote(payload));
@@ -117,8 +140,8 @@ static bool download_from_libc_rip(const std::string& build_id,
     std::string url = extract_download_url(r.output);
     std::string libs_url = extract_libs_url(r.output);
 
-    if (url.empty()) {
-        warn("No download URL in libc.rip response");
+    if (url.empty() || !is_safe_url(url)) {
+        warn("No valid download URL in libc.rip response");
         return false;
     }
 
@@ -133,7 +156,7 @@ static bool download_from_libc_rip(const std::string& build_id,
     ok("Downloaded libc -> " + out_libc.string());
 
     // Download libs (contains ld-linux)
-    if (!libs_url.empty()) {
+    if (!libs_url.empty() && is_safe_url(libs_url)) {
         fs::path tmp_archive = challenge_dir / "_libs.tar.gz";
         info("Downloading loader...");
         auto dl2 = exec("curl -sf -m 60 -o " + shell_quote(tmp_archive.string()) + " " + shell_quote(libs_url));
@@ -162,9 +185,14 @@ static bool download_from_libc_rip(const std::string& build_id,
             }
         }
         fs::remove(tmp_archive);
-        // Clean up extracted subdirectories
+        // Clean up extracted subdirectories (only known lib paths)
         for (auto& entry : fs::directory_iterator(challenge_dir)) {
-            if (entry.is_directory() && entry.path().filename().string() != "fs")
+            if (!entry.is_directory()) continue;
+            std::string name = entry.path().filename().string();
+            // Only remove directories that look like extracted lib archives
+            if (name == "lib" || name == "lib64" || name == "lib32" ||
+                name == "usr" || name == "etc" || name == "debian" ||
+                name.find("lib-") == 0)
                 fs::remove_all(entry.path());
         }
     }
@@ -357,7 +385,7 @@ PatchResult download_and_patch(const fs::path& challenge_dir,
 
             if (r && !r.output.empty()) {
                 std::string dl_url = extract_download_url(r.output);
-                if (!dl_url.empty()) {
+                if (!dl_url.empty() && is_safe_url(dl_url)) {
                     fs::path libc_dst = challenge_dir / "libc.so.6";
                     info("Downloading libc...");
                     auto dl = exec("curl -sf -m 60 -o " + shell_quote(libc_dst.string()) + " " + shell_quote(dl_url));

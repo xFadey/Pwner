@@ -6,9 +6,15 @@ namespace pwner {
 
 fs::path Config::config_path() {
     const char* xdg = std::getenv("XDG_CONFIG_HOME");
-    fs::path base = xdg ? fs::path(xdg)
-                        : fs::path(std::getenv("HOME")) / ".config";
-    return base / "pwner" / "pwner.conf";
+    if (xdg && xdg[0] != '\0')
+        return fs::path(xdg) / "pwner" / "pwner.conf";
+
+    const char* home = std::getenv("HOME");
+    if (home && home[0] != '\0')
+        return fs::path(home) / ".config" / "pwner" / "pwner.conf";
+
+    // Fallback: use /tmp so we never crash
+    return fs::path("/tmp") / ".config" / "pwner" / "pwner.conf";
 }
 
 Config Config::load() {
