@@ -40,7 +40,7 @@ struct Args {
 
 static void print_help() {
     banner();
-    std::cerr << R"(Usage: Pwner [options] <binary> [libc] [loader]
+    std::cerr << R"(Usage: pwner [options] <binary> [libc] [loader]
 
 Modes:
   (default)             Full challenge setup (checksec + script + patch + decomp)
@@ -72,14 +72,14 @@ Options:
   --version             Show version
 
 Examples:
-  Pwner ./challenge                     Full setup, auto-detect libc
-  Pwner ./challenge ./libc.so           Full setup with provided libc
-  Pwner ./challenge ./libc.so ./ld.so   Full setup with libc + loader
-  Pwner -d ./challenge                  Open decompiler only
-  Pwner -s --heap ./challenge           Generate heap exploit script
-  Pwner --kernel ./bzImage              Kernel challenge setup
-  Pwner -c ./challenge                  Checksec only
-  Pwner -r 'example.com:1337' ./chal    Set remote in script
+  pwner ./challenge                     Full setup, auto-detect libc
+  pwner ./challenge ./libc.so           Full setup with provided libc
+  pwner ./challenge ./libc.so ./ld.so   Full setup with libc + loader
+  pwner -d ./challenge                  Open decompiler only
+  pwner -s --heap ./challenge           Generate heap exploit script
+  pwner --kernel ./bzImage              Kernel challenge setup
+  pwner -c ./challenge                  Checksec only
+  pwner -r 'example.com:1337' ./chal    Set remote in script
 )";
 }
 
@@ -168,7 +168,7 @@ static Args parse_args(int argc, char* argv[]) {
                 print_help();
                 exit(0);
             case OPT_VERSION:
-                std::cerr << "Pwner v1.0.0\n";
+                std::cerr << "pwner v1.0.0\n";
                 exit(0);
             default:
                 print_help();
@@ -416,7 +416,7 @@ int main(int argc, char* argv[]) {
 
         case Mode::PATCH: {
             if (args.libc.empty()) {
-                err("Patch mode requires a libc: Pwner -p <binary> <libc> [loader]");
+                err("Patch mode requires a libc: pwner -p <binary> <libc> [loader]");
                 return 1;
             }
             ElfInfo elf = parse_elf(args.binary);

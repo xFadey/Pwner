@@ -285,7 +285,7 @@ PatchResult patch_binary(const fs::path& challenge_dir,
                 warn("Using system loader (might cause issues with mismatched libc)");
             } else {
                 warn("No suitable loader found. Binary may not run correctly.");
-                warn("Provide it manually: Pwner <binary> <libc> <loader>");
+                warn("Provide it manually: pwner <binary> <libc> <loader>");
             }
         } else if (found_ld != result.loader_path) {
             fs::copy_file(found_ld, result.loader_path, fs::copy_options::overwrite_existing);
@@ -401,8 +401,8 @@ PatchResult download_and_patch(const fs::path& challenge_dir,
 
     // ── Strategy 2: Use system libc as fallback ──
     warn("Could not auto-detect libc version");
-    warn("Provide libc manually: Pwner <binary> <libc> [loader]");
-    warn("Or try: Pwner --download-libc --libc-ver 2.35 <binary>");
+    warn("Provide libc manually: pwner <binary> <libc> [loader]");
+    warn("Or try: pwner --download-libc --libc-ver 2.35 <binary>");
 
     result.success = true; // Non-fatal: continue without patching
     return result;

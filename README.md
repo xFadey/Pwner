@@ -1,4 +1,4 @@
-# Pwner
+# pwner
 C++ CTF pwn challenge automation tool. Sets up your entire exploit workspace in seconds — checksec, pwntools script, libc patching, and decompiler launch in one command.
 
 ```
@@ -37,7 +37,7 @@ sudo apt install binutils file
 ### 2. Build & Install
 
 ```bash
-git clone <repo> && cd Pwner
+git clone <repo> && cd pwner
 chmod +x setup.sh install.sh
 
 # Interactive configuration (decompiler path, challenge directory, terminal, etc.)
@@ -78,23 +78,23 @@ editor=nvim
 ## Usage
 
 ```
-Pwner [options] <binary> [libc] [loader]
+pwner [options] <binary> [libc] [loader]
 ```
 
 ### Full Setup (Default)
 
 ```bash
 # Basic setup: checksec + script + decompiler
-Pwner ./challenge
+pwner ./challenge
 
 # With provided libc (patches binary automatically)
-Pwner ./challenge ./libc-2.35.so
+pwner ./challenge ./libc-2.35.so
 
 # With libc AND loader
-Pwner ./challenge ./libc-2.35.so ./ld-linux-x86-64.so.2
+pwner ./challenge ./libc-2.35.so ./ld-linux-x86-64.so.2
 
 # Set remote in generated script
-Pwner -r 'pwn.example.com:1337' ./challenge ./libc.so
+pwner -r 'pwn.example.com:1337' ./challenge ./libc.so
 ```
 
 **What happens:**
@@ -117,11 +117,11 @@ Pwner -r 'pwn.example.com:1337' ./challenge ./libc.so
 | `--deps` | | Check all dependencies |
 
 ```bash
-Pwner -d ./challenge            # Just open IDA/Ghidra
-Pwner -s ./challenge            # Just generate solve.py
-Pwner -c ./challenge            # Just checksec
-Pwner -p ./challenge ./libc.so  # Just patch, don't setup workspace
-Pwner --deps                    # Check patchelf, pwntools, etc.
+pwner -d ./challenge            # Just open IDA/Ghidra
+pwner -s ./challenge            # Just generate solve.py
+pwner -c ./challenge            # Just checksec
+pwner -p ./challenge ./libc.so  # Just patch, don't setup workspace
+pwner --deps                    # Check patchelf, pwntools, etc.
 ```
 
 ### Challenge Templates
@@ -136,11 +136,11 @@ Pwner --deps                    # Check patchelf, pwntools, etc.
 | `--gpu` | GPU | CUDA/OpenCL exploitation notes, DMA attack patterns |
 
 ```bash
-Pwner --heap ./challenge ./libc.so     # Full heap challenge setup
-Pwner -s --rop ./challenge             # Generate ROP script only
-Pwner --kernel ./bzImage               # Full kernel challenge setup
-Pwner --v8 ./d8                        # V8 challenge setup with exploit.js
-Pwner -s --fmt ./challenge             # Format string script only
+pwner --heap ./challenge ./libc.so     # Full heap challenge setup
+pwner -s --rop ./challenge             # Generate ROP script only
+pwner --kernel ./bzImage               # Full kernel challenge setup
+pwner --v8 ./d8                        # V8 challenge setup with exploit.js
+pwner -s --fmt ./challenge             # Format string script only
 ```
 
 ### Modifier Flags
@@ -158,10 +158,10 @@ Pwner -s --fmt ./challenge             # Format string script only
 | `-v, --verbose` | Verbose output |
 
 ```bash
-Pwner --no-decomp ./challenge                # Setup without opening IDA
-Pwner -n MyChall -o /tmp ./challenge         # Custom name and output dir
-Pwner -r 'host.io:31337' --heap ./chal libc  # Heap setup with remote preset
-Pwner -t kitty ./challenge                   # Use kitty for GDB terminal
+pwner --no-decomp ./challenge                # Setup without opening IDA
+pwner -n MyChall -o /tmp ./challenge         # Custom name and output dir
+pwner -r 'host.io:31337' --heap ./chal libc  # Heap setup with remote preset
+pwner -t kitty ./challenge                   # Use kitty for GDB terminal
 ```
 
 ## Generated Script
@@ -209,7 +209,7 @@ python3 solve.py REMOTE   # Connect to remote
 
 ## Libc Patching Details
 
-When you provide a libc, Pwner:
+When you provide a libc, pwner:
 
 1. **Renames** the libc to `libc.so.6` (required for patchelf `--set-rpath` to work)
 2. **Finds the loader** (`ld-linux-x86-64.so.2` etc.):
@@ -222,7 +222,7 @@ When you provide a libc, Pwner:
    ```
 4. Makes all files executable
 
-When no libc is provided, Pwner attempts auto-download:
+When no libc is provided, pwner attempts auto-download:
 1. Looks for `Dockerfile` near the binary
 2. Parses `FROM ubuntu:XX.XX` to identify distro version
 3. Queries libc.rip API for matching libc
@@ -230,7 +230,7 @@ When no libc is provided, Pwner attempts auto-download:
 
 ## Kernel Challenge Setup
 
-`Pwner --kernel ./bzImage` generates:
+`pwner --kernel ./bzImage` generates:
 
 | File | Purpose |
 |---|---|
@@ -252,7 +252,7 @@ python3 solve.py all       # All of the above
 
 ## V8 Challenge Setup
 
-`Pwner --v8 ./d8` generates:
+`pwner --v8 ./d8` generates:
 
 | File | Purpose |
 |---|---|
@@ -261,7 +261,7 @@ python3 solve.py all       # All of the above
 
 ## Architecture Support
 
-Pwner's ELF parser handles:
+pwner's ELF parser handles:
 - **x86_64** (amd64)
 - **i386** (x86)
 - **ARM** (arm)

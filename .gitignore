@@ -17,7 +17,7 @@ Makefile
 *.dylib
 
 # Binary
-Pwner
+pwner
 !src/
 
 # Editor / IDE

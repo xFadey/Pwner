@@ -30,7 +30,7 @@ Config Config::load() {
     fs::path path = config_path();
     if (!fs::exists(path)) {
         warn("Config not found: " + path.string());
-        warn("Run the setup.sh script to configure Pwner");
+        warn("Run the setup.sh script to configure pwner");
         return cfg;
     }
 

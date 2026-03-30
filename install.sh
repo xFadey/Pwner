@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ─────────────────────────────────────────────────────────────
-#  Pwner - Build & Install Script
+#  pwner - Build & Install Script
 # ─────────────────────────────────────────────────────────────
 set -euo pipefail
 
@@ -20,7 +20,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 cd "$SCRIPT_DIR"
 
-info "Building Pwner..."
+info "Building pwner..."
 
 # Clean stale cache (avoids cross-machine path mismatch)
 rm -rf "$BUILD_DIR/CMakeCache.txt" "$BUILD_DIR/CMakeFiles"
@@ -38,22 +38,22 @@ cmake --build . -j"$(nproc)" 2>&1
 ok "Build successful!"
 
 echo ""
-info "Installing to ${PREFIX}/bin/Pwner ..."
+info "Installing to ${PREFIX}/bin/pwner ..."
 
 # Install (may need sudo)
 if [ -w "${PREFIX}/bin" ] 2>/dev/null; then
     cmake --install . 2>&1
-    ok "Installed: ${PREFIX}/bin/Pwner"
+    ok "Installed: ${PREFIX}/bin/pwner"
 else
     info "Root access required for installation to ${PREFIX}/bin"
     sudo cmake --install . 2>&1
-    ok "Installed: ${PREFIX}/bin/Pwner"
+    ok "Installed: ${PREFIX}/bin/pwner"
 fi
 
 echo ""
 # Verify
-if command -v Pwner >/dev/null 2>&1; then
-    ok "Pwner is ready! Run: Pwner --help"
+if command -v pwner >/dev/null 2>&1; then
+    ok "pwner is ready! Run: pwner --help"
 else
     info "Make sure ${PREFIX}/bin is in your PATH"
     info "  export PATH=\"${PREFIX}/bin:\$PATH\""
