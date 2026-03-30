@@ -191,13 +191,13 @@ def conn():
     else:
         return process(elf.path)
 
-io = conn()
+p = conn()
 
 # ===========================
 #        EXPLOIT HERE
 # ===========================
 
-io.interactive()
+p.interactive()
 ```
 
 Run with:

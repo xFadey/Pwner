@@ -32,14 +32,14 @@ def conn():
     else:
         return process(elf.path)
 
-io = conn()
+p = conn()
 
 # ===========================
 #        EXPLOIT HERE
 # ===========================
 
 
-io.interactive()
+p.interactive()
 )";
     return s;
 }
@@ -79,27 +79,27 @@ def conn():
 # Adjust menu indices & prompts for your challenge
 
 def alloc(idx, size, data=b''):
-    io.sendlineafter(b'> ', b'1')
-    io.sendlineafter(b': ', str(idx).encode())
-    io.sendlineafter(b': ', str(size).encode())
+    p.sendlineafter(b'> ', b'1')
+    p.sendlineafter(b': ', str(idx).encode())
+    p.sendlineafter(b': ', str(size).encode())
     if data:
-        io.sendafter(b': ', data)
+        p.sendafter(b': ', data)
 
 def free(idx):
-    io.sendlineafter(b'> ', b'2')
-    io.sendlineafter(b': ', str(idx).encode())
+    p.sendlineafter(b'> ', b'2')
+    p.sendlineafter(b': ', str(idx).encode())
 
 def show(idx):
-    io.sendlineafter(b'> ', b'3')
-    io.sendlineafter(b': ', str(idx).encode())
-    return io.recvline()
+    p.sendlineafter(b'> ', b'3')
+    p.sendlineafter(b': ', str(idx).encode())
+    return p.recvline()
 
 def edit(idx, data):
-    io.sendlineafter(b'> ', b'4')
-    io.sendlineafter(b': ', str(idx).encode())
-    io.sendafter(b': ', data)
+    p.sendlineafter(b'> ', b'4')
+    p.sendlineafter(b': ', str(idx).encode())
+    p.sendafter(b': ', data)
 
-io = conn()
+p = conn()
 
 # ===========================
 #        EXPLOIT HERE
@@ -124,7 +124,7 @@ io = conn()
 #   Forge fake chunk with correct size field
 
 
-io.interactive()
+p.interactive()
 )";
     return s;
 }
@@ -174,24 +174,24 @@ def exec_fmt(payload):
 # log.info(f"Format string offset: {autofmt.offset}")
 # offset = autofmt.offset
 
-io = conn()
+p = conn()
 
 # ===========================
 #        EXPLOIT HERE
 # ===========================
 #
 # Manual leak:
-#   io.sendline(b'%p.' * 20)
+#   p.sendline(b'%p.' * 20)
 #
 # Arbitrary write (after finding offset):
 #   payload = fmtstr_payload(offset, {target_addr: value})
-#   io.sendline(payload)
+#   p.sendline(payload)
 #
 # GOT overwrite:
 #   payload = fmtstr_payload(offset, {elf.got['printf']: elf.sym['win']})
 
 
-io.interactive()
+p.interactive()
 )";
     return s;
 }
@@ -227,7 +227,7 @@ def conn():
     else:
         return process(elf.path)
 
-io = conn()
+p = conn()
 
 # ===========================
 #        EXPLOIT HERE
@@ -258,7 +258,7 @@ io = conn()
 #   payload = padding + rop.chain()
 
 
-io.interactive()
+p.interactive()
 )";
     return s;
 }
@@ -290,7 +290,7 @@ def conn():
     else:
         return process([D8] + ARGS + ['./exploit.js'])
 
-io = conn()
+p = conn()
 
 # ===========================
 #        EXPLOIT HERE
@@ -306,7 +306,7 @@ io = conn()
 #   - WASM for RWX page (shellcode execution)
 
 
-io.interactive()
+p.interactive()
 )";
     return s;
 }
@@ -447,7 +447,7 @@ def conn():
     else:
         return process(elf.path)
 
-io = conn()
+p = conn()
 
 # ===========================
 #       GPU EXPLOIT HERE
@@ -468,7 +468,7 @@ io = conn()
 #   - IOMMU bypass techniques
 
 
-io.interactive()
+p.interactive()
 )";
     return s;
 }
