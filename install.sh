@@ -22,6 +22,9 @@ cd "$SCRIPT_DIR"
 
 info "Building Pwner..."
 
+# Clean stale cache (avoids cross-machine path mismatch)
+rm -rf "$BUILD_DIR/CMakeCache.txt" "$BUILD_DIR/CMakeFiles"
+
 # Create build directory
 mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
